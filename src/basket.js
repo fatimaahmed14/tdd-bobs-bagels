@@ -1,5 +1,7 @@
+const Basket = []
+
 function add() {
-  return 'bagel'
+  return Basket.push('bagel')
 }
 
 module.exports = {
