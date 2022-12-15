@@ -9,11 +9,21 @@ function add(variant) {
   Basket.push(bagel)
   return Basket
 }
+
 function resetBasket() {
   Basket.splice(0, Basket.length)
 }
 
+function isFull() {
+  if (Basket.length <= 5) {
+    return true
+  } else {
+    return false
+  }
+}
+
 module.exports = {
   add,
-  resetBasket
+  resetBasket,
+  isFull
 }

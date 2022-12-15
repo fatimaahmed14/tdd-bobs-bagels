@@ -1,4 +1,4 @@
-const { add, resetBasket } = require('../../src/basket.js')
+const { add, resetBasket, isFull } = require('../../src/basket.js')
 describe('bagel basket', () => {
   beforeEach(() => {
     resetBasket()
@@ -32,5 +32,22 @@ describe('bagel basket', () => {
         variant: 'Everything'
       }
     ])
+  })
+  it('should return true is basket has less than 5 bagels', () => {
+    add('Plain')
+    add('Plain')
+    const result = isFull()
+    expect(result).toBeTrue()
+  })
+
+  it('should return false is basket has more than 5 bagels', () => {
+    add('Plain')
+    add('Plain')
+    add('Plain')
+    add('Plain')
+    add('Plain')
+    add('Plain')
+    const result = isFull()
+    expect(result).toBeFalse()
   })
 })
