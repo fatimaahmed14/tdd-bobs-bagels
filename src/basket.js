@@ -15,7 +15,7 @@ function add(variant) {
   return Basket
 }
 
-// need to incraes the quantiy every time a bagel on the same sku is added
+// need to increaes the quantity every time a bagel on the same sku is added
 // need to use find() then increase qunatity property by one is it already exists
 // if it doesnt exist push it in the basket
 
@@ -34,12 +34,22 @@ function isFull() {
     return false
   }
 }
+function remove(bagel) {
+  const found = Basket.find((item) => item === bagel)
+
+  if (found) {
+    //  copy basket + delete it
+  }
+
+  return Basket
+}
 
 module.exports = {
   add,
   resetBasket,
   isFull,
-  increaseBasketCapacity
+  increaseBasketCapacity,
+  remove
 }
 
 // const data = require('../inventory.json')
