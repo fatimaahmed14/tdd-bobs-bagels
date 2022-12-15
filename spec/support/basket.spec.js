@@ -1,4 +1,9 @@
-const { add, resetBasket, isFull } = require('../../src/basket.js')
+const {
+  add,
+  resetBasket,
+  isFull,
+  increaseBasketCapacity
+} = require('../../src/basket.js')
 describe('bagel basket', () => {
   beforeEach(() => {
     resetBasket()
@@ -11,7 +16,8 @@ describe('bagel basket', () => {
       {
         id: 1,
         name: 'Bagel',
-        variant: 'Plain'
+        variant: 'Plain',
+        quantity: 1
       }
     ])
   })
@@ -24,12 +30,14 @@ describe('bagel basket', () => {
       {
         id: 1,
         name: 'Bagel',
-        variant: 'Plain'
+        variant: 'Plain',
+        quantity: 1
       },
       {
         id: 2,
         name: 'Bagel',
-        variant: 'Everything'
+        variant: 'Everything',
+        quantity: 1
       }
     ])
   })
@@ -44,6 +52,15 @@ describe('bagel basket', () => {
     add('Plain')
     add('Plain')
     add('Plain')
+    add('Plain')
+    add('Plain')
+    add('Plain')
+    const result = isFull()
+    expect(result).toBeFalse()
+  })
+
+  it('should allow manager to increase max basket capacity ', () => {
+    increaseBasketCapacity(2)
     add('Plain')
     add('Plain')
     add('Plain')
