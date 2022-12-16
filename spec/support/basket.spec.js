@@ -3,7 +3,8 @@ const {
   resetBasket,
   isFull,
   increaseBasketCapacity,
-  remove
+  remove,
+  getBasket
 } = require('../../src/basket.js')
 describe('bagel basket', () => {
   beforeEach(() => {
@@ -69,15 +70,18 @@ describe('bagel basket', () => {
     expect(result).toBeFalse()
   })
 
-  it('should remove item bagel it exists in the basket', () => {
-    add('Plain')
-    add('Everything')
-    const result = remove('Plain')
-    expect(result).toEqual({
-      id: 1,
-      name: 'Bagel',
-      variant: 'Plain',
-      quantity: 1
-    })
+  // it('should remove item bagel it exists in the basket', () => {
+  //   add('Plain')
+  //   const result = remove('Plain')
+  //   expect(result).toEqual({
+  //     id: 1,
+  //     name: 'Bagel',
+  //     variant: 'Plain',
+  //     quantity: 1
+  //   })
+  // })
+  it('should return the basket', () => {
+    const result = getBasket()
+    expect(result).toEqual([])
   })
 })

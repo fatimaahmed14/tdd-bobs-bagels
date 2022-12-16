@@ -4,6 +4,10 @@
 const Basket = []
 let capacity = 5
 
+function getBasket() {
+  return Basket
+}
+
 function add(variant) {
   const bagel = {
     id: Basket.length + 1,
@@ -15,8 +19,8 @@ function add(variant) {
   return Basket
 }
 
-// need to increaes the quantity every time a bagel on the same sku is added
-// need to use find() then increase qunatity property by one is it already exists
+// need to increase the quantity every time a bagel of the same sku is added
+// need to use find() then increase quantity property by one is it already exists
 // if it doesnt exist push it in the basket
 
 function resetBasket() {
@@ -49,11 +53,9 @@ module.exports = {
   resetBasket,
   isFull,
   increaseBasketCapacity,
-  remove
+  remove,
+  getBasket
 }
-
-// const data = require('../inventory.json')
-// const { inventory } = data
 
 // class Basket {
 //     basket = []
