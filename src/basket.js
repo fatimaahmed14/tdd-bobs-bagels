@@ -10,7 +10,6 @@ function getBasket() {
 
 function add(variant) {
   const bagel = {
-    id: Basket.length + 1,
     name: 'Bagel',
     variant,
     quantity: 1
@@ -39,13 +38,15 @@ function isFull() {
   }
 }
 function remove(bagel) {
-  const found = Basket.find((item) => item === bagel)
+  const found = Basket.find((item) => item.variant === bagel)
 
-  if (found) {
-    //  copy basket + delete it
+  if (!found) {
+    return false
   }
 
-  return Basket
+  const index = Basket.findIndex((item) => item.variant === bagel)
+  Basket.splice(index, 1)
+  return found
 }
 
 module.exports = {

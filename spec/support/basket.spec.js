@@ -16,7 +16,6 @@ describe('bagel basket', () => {
 
     expect(basket).toEqual([
       {
-        id: 1,
         name: 'Bagel',
         variant: 'Plain',
         quantity: 1
@@ -30,13 +29,11 @@ describe('bagel basket', () => {
 
     expect(bagelReport).toEqual([
       {
-        id: 1,
         name: 'Bagel',
         variant: 'Plain',
         quantity: 1
       },
       {
-        id: 2,
         name: 'Bagel',
         variant: 'Everything',
         quantity: 1
@@ -70,16 +67,25 @@ describe('bagel basket', () => {
     expect(result).toBeFalse()
   })
 
-  // it('should remove item bagel it exists in the basket', () => {
-  //   add('Plain')
-  //   const result = remove('Plain')
-  //   expect(result).toEqual({
-  //     id: 1,
-  //     name: 'Bagel',
-  //     variant: 'Plain',
-  //     quantity: 1
-  //   })
-  // })
+  it('should return true if item to remove is in basket', () => {
+    add('Plain')
+    const result = remove('Everything')
+    expect(result).toBeFalse()
+  })
+
+  it('should remove item bagel if it exists in the basket', () => {
+    add('Plain')
+    add('Everything')
+    remove('Plain')
+    const result = getBasket()
+    expect(result).toEqual([
+      {
+        name: 'Bagel',
+        variant: 'Everything',
+        quantity: 1
+      }
+    ])
+  })
   it('should return the basket', () => {
     const result = getBasket()
     expect(result).toEqual([])
