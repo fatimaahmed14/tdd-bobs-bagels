@@ -12,7 +12,8 @@ function add(variant) {
   const bagel = {
     name: 'Bagel',
     variant,
-    quantity: 1
+    quantity: 1,
+    price: 0.5
   }
   Basket.push(bagel)
   return Basket
@@ -48,6 +49,14 @@ function remove(bagel) {
   Basket.splice(index, 1)
   return found
 }
+function displayPrice(bagel) {
+  const found = Basket.find((item) => item.variant === bagel)
+
+  if (!found) {
+    return false
+  }
+  return found.price
+}
 
 module.exports = {
   add,
@@ -55,7 +64,8 @@ module.exports = {
   isFull,
   increaseBasketCapacity,
   remove,
-  getBasket
+  getBasket,
+  displayPrice
 }
 
 // class Basket {

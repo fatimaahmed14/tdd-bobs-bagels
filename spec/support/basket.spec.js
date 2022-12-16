@@ -4,7 +4,8 @@ const {
   isFull,
   increaseBasketCapacity,
   remove,
-  getBasket
+  getBasket,
+  displayPrice
 } = require('../../src/basket.js')
 describe('bagel basket', () => {
   beforeEach(() => {
@@ -18,7 +19,8 @@ describe('bagel basket', () => {
       {
         name: 'Bagel',
         variant: 'Plain',
-        quantity: 1
+        quantity: 1,
+        price: 0.5
       }
     ])
   })
@@ -31,12 +33,14 @@ describe('bagel basket', () => {
       {
         name: 'Bagel',
         variant: 'Plain',
-        quantity: 1
+        quantity: 1,
+        price: 0.5
       },
       {
         name: 'Bagel',
         variant: 'Everything',
-        quantity: 1
+        quantity: 1,
+        price: 0.5
       }
     ])
   })
@@ -82,12 +86,18 @@ describe('bagel basket', () => {
       {
         name: 'Bagel',
         variant: 'Everything',
-        quantity: 1
+        quantity: 1,
+        price: 0.5
       }
     ])
   })
   it('should return the basket', () => {
     const result = getBasket()
     expect(result).toEqual([])
+  })
+  it('should return price of bagel', () => {
+    add('Plain')
+    const result = displayPrice('Plain')
+    expect(result).toEqual(0.5)
   })
 })
