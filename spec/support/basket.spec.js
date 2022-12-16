@@ -5,8 +5,10 @@ const {
   increaseBasketCapacity,
   remove,
   getBasket,
-  displayPrice
+  displayPrice,
+  total
 } = require('../../src/basket.js')
+
 describe('bagel basket', () => {
   beforeEach(() => {
     resetBasket()
@@ -24,6 +26,7 @@ describe('bagel basket', () => {
       }
     ])
   })
+
   it('can add multiple bagels to basket', () => {
     add('Plain')
 
@@ -44,6 +47,7 @@ describe('bagel basket', () => {
       }
     ])
   })
+
   it('should return true is basket has less than 5 bagels', () => {
     add('Plain')
     add('Plain')
@@ -91,13 +95,22 @@ describe('bagel basket', () => {
       }
     ])
   })
+
   it('should return the basket', () => {
     const result = getBasket()
     expect(result).toEqual([])
   })
+
   it('should return price of bagel', () => {
     add('Plain')
     const result = displayPrice('Plain')
     expect(result).toEqual(0.5)
+  })
+
+  it('should return the total of all the bagels in customer`s basket', () => {
+    add('Plain')
+    add('Plain')
+    const result = total()
+    expect(result).toEqual(1)
   })
 })

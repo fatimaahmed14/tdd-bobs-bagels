@@ -1,6 +1,7 @@
 // const data = require('../inventory.json')
 // const { inventory } = data
-// need to implement real data + bob's actual bagels
+// ^ need to implement real data + bob's actual bagels
+
 const Basket = []
 let capacity = 5
 
@@ -38,6 +39,7 @@ function isFull() {
     return false
   }
 }
+
 function remove(bagel) {
   const found = Basket.find((item) => item.variant === bagel)
 
@@ -49,6 +51,7 @@ function remove(bagel) {
   Basket.splice(index, 1)
   return found
 }
+
 function displayPrice(bagel) {
   const found = Basket.find((item) => item.variant === bagel)
 
@@ -58,6 +61,12 @@ function displayPrice(bagel) {
   return found.price
 }
 
+function total() {
+  return Basket.reduce((runningTotal, bagel) => {
+    return runningTotal + bagel.price
+  }, 0)
+}
+
 module.exports = {
   add,
   resetBasket,
@@ -65,7 +74,8 @@ module.exports = {
   increaseBasketCapacity,
   remove,
   getBasket,
-  displayPrice
+  displayPrice,
+  total
 }
 
 // class Basket {
