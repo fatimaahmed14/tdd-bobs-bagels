@@ -15,7 +15,8 @@ describe('bagel basket', () => {
   })
 
   it('can add a bagel to basket', () => {
-    const basket = add('Plain')
+    add('Plain')
+    const basket = getBasket()
 
     expect(basket).toEqual([
       {
@@ -29,10 +30,10 @@ describe('bagel basket', () => {
 
   it('can add multiple bagels to basket', () => {
     add('Plain')
+    add('Everything')
+    const basket = getBasket()
 
-    const bagelReport = add('Everything')
-
-    expect(bagelReport).toEqual([
+    expect(basket).toEqual([
       {
         name: 'Bagel',
         variant: 'Plain',
@@ -43,6 +44,19 @@ describe('bagel basket', () => {
         name: 'Bagel',
         variant: 'Everything',
         quantity: 1,
+        price: 0.5
+      }
+    ])
+  })
+  it('should increase quantity of bagel if it is already in the basket', () => {
+    add('Plain')
+    const result = add('Plain')
+
+    expect(result).toEqual([
+      {
+        name: 'Bagel',
+        variant: 'Plain',
+        quantity: 2,
         price: 0.5
       }
     ])

@@ -16,13 +16,26 @@ function add(variant) {
     quantity: 1,
     price: 0.5
   }
-  Basket.push(bagel)
-  return Basket
+  const found = Basket.find((item) => item.variant === bagel.variant)
+
+  if (found) {
+    found.quantity += 1
+    return Basket.push(found)
+  }
+
+  return Basket.push(bagel)
 }
 
 // need to increase the quantity every time a bagel of the same sku is added
 // need to use find() then increase quantity property by one is it already exists
 // if it doesnt exist push it in the basket
+// const found = Basket.find((item) => item.variant === bagel)
+
+// if (!found) {
+//   return Basket.push(bagel)
+// }
+// found.quantity += 1
+//         return found
 
 function resetBasket() {
   Basket.splice(0, Basket.length)
