@@ -19,8 +19,7 @@ function add(variant) {
   const found = Basket.find((item) => item.variant === bagel.variant)
 
   if (found) {
-    found.quantity += 1
-    return Basket.push(found)
+    return (found.quantity += 1)
   }
 
   return Basket.push(bagel)
@@ -46,7 +45,8 @@ function increaseBasketCapacity(newCapacity) {
 }
 
 function isFull() {
-  if (Basket.length <= capacity) {
+  const basketCapacity = Basket.length
+  if (basketCapacity <= capacity) {
     return true
   } else {
     return false

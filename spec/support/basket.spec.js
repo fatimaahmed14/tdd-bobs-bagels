@@ -50,7 +50,8 @@ describe('bagel basket', () => {
   })
   it('should increase quantity of bagel if it is already in the basket', () => {
     add('Plain')
-    const result = add('Plain')
+    add('Plain')
+    const result = getBasket()
 
     expect(result).toEqual([
       {
@@ -123,7 +124,7 @@ describe('bagel basket', () => {
 
   it('should return the total of all the bagels in customer`s basket', () => {
     add('Plain')
-    add('Plain')
+    add('Everything')
     const result = total()
     expect(result).toEqual(1)
   })
