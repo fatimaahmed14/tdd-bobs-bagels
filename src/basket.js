@@ -47,7 +47,7 @@ function basketReset() {
   basket.splice(0, basket.length)
 }
 
-function theCapacity(num) {
+function capacity(num) {
   basketCapacity = num
   basket.splice(0, basket.length)
 }
@@ -58,5 +58,5 @@ module.exports = {
   remove,
   returnBasket,
   totalBagelPrice,
-  theCapacity
+  capacity
 }

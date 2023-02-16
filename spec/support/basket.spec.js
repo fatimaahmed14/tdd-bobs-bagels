@@ -1,131 +1,88 @@
 const {
   add,
-  resetBasket,
-  isFull,
-  increaseBasketCapacity,
+  basketReset,
   remove,
-  getBasket,
-  displayPrice,
-  total
+  returnBasket,
+  totalBagelPrice,
+  capacity
 } = require('../../src/basket.js')
 
-describe('bagel basket', () => {
+describe('basket ', () => {
   beforeEach(() => {
-    resetBasket()
+    basketReset()
   })
 
-  it('can add a bagel to basket', () => {
-    add('Plain')
-    const basket = getBasket()
+  it('adds a bagel to the basket', () => {
+    const bagel = add('BGLO')
 
-    expect(basket).toEqual([
-      {
-        name: 'Bagel',
-        variant: 'Plain',
-        quantity: 1,
-        price: 0.5
-      }
-    ])
+    expect(bagel).toEqual({
+      sku: 'BGLO',
+      price: '0.49',
+      name: 'Bagel',
+      variant: 'Onion',
+      quantity: 1
+    })
   })
 
-  it('can add multiple bagels to basket', () => {
-    add('Plain')
-    add('Everything')
-    const basket = getBasket()
+  it('returns false if the bagel is not in the basket', () => {
+    const removed = remove('BGLO')
 
-    expect(basket).toEqual([
-      {
-        name: 'Bagel',
-        variant: 'Plain',
-        quantity: 1,
-        price: 0.5
-      },
-      {
-        name: 'Bagel',
-        variant: 'Everything',
-        quantity: 1,
-        price: 0.5
-      }
-    ])
-  })
-  it('should increase quantity of bagel if it is already in the basket', () => {
-    add('Plain')
-    add('Plain')
-    const result = getBasket()
-
-    expect(result).toEqual([
-      {
-        name: 'Bagel',
-        variant: 'Plain',
-        quantity: 2,
-        price: 0.5
-      }
-    ])
+    expect(removed).toBeFalse()
   })
 
-  it('should return true is basket has less than 5 bagels', () => {
-    add('Plain')
-    add('Plain')
-    const result = isFull()
-    expect(result).toBeTrue()
+  it('removea a specified bagel from basket', () => {
+    add('BGLO')
+    const removed = remove('BGLO')
+    const basket = returnBasket()
+
+    expect(removed).toEqual({
+      sku: 'BGLO',
+      price: '0.49',
+      name: 'Bagel',
+      variant: 'Onion',
+      quantity: 1
+    })
+    expect(basket).toEqual([])
   })
 
-  it('should return false is basket has more than 5 bagels', () => {
-    add('Plain')
-    add('Plain')
-    add('Plain')
-    add('Plain')
-    add('Plain')
-    add('Plain')
-    const result = isFull()
+  it('returns the total price of all bagels in a basket', () => {
+    add('BGLO')
+    add('BGLO')
+    add('BGLP')
+
+    const totalPrice = totalBagelPrice()
+    expect(totalPrice).toBe(1.37)
+  })
+
+  it('returns false when basket is at its max capacity', () => {
+    capacity(3)
+    add('BGLO')
+    add('BGLD')
+    add('BGLE')
+    const result = add('BGLP')
+
     expect(result).toBeFalse()
   })
+  it('updates the quantity of bagels in the basket when bagel is added', () => {
+    add('BGLO')
+    const bagel = add('BGLO')
 
-  it('should allow manager to increase max basket capacity ', () => {
-    increaseBasketCapacity(2)
-    add('Plain')
-    add('Plain')
-    add('Plain')
-    const result = isFull()
-    expect(result).toBeFalse()
-  })
+    expect(bagel).toEqual({
+      sku: 'BGLO',
+      price: '0.49',
+      name: 'Bagel',
+      variant: 'Onion',
+      quantity: 2
+    })
 
-  it('should return true if item to remove is in basket', () => {
-    add('Plain')
-    const result = remove('Everything')
-    expect(result).toBeFalse()
-  })
-
-  it('should remove item bagel if it exists in the basket', () => {
-    add('Plain')
-    add('Everything')
-    remove('Plain')
-    const result = getBasket()
-    expect(result).toEqual([
+    expect(returnBasket()).toEqual([
       {
+        sku: 'BGLO',
+        price: '0.49',
         name: 'Bagel',
-        variant: 'Everything',
-        quantity: 1,
-        price: 0.5
+        variant: 'Onion',
+        quantity: 2
       }
     ])
-  })
-
-  it('should return the basket', () => {
-    const result = getBasket()
-    expect(result).toEqual([])
-  })
-
-  it('should return price of bagel', () => {
-    add('Plain')
-    const result = displayPrice('Plain')
-    expect(result).toEqual(0.5)
-  })
-
-  it('should return the total of all the bagels in customer`s basket', () => {
-    add('Plain')
-    add('Everything')
-    const result = total()
-    expect(result).toEqual(1)
   })
 })
